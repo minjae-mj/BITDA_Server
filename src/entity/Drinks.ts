@@ -57,4 +57,14 @@ export default class Drink extends BaseEntity {
 
   @OneToMany((type) => Review, (review) => review.drink)
   review: Review[];
+
+  static allDrinkList(){
+   return this.createQueryBuilder("drink")
+   .getMany();
+  }
+  static detailView(id){
+    return this.createQueryBuilder("drink")
+    .where("drink.id = :id", {id})
+    .getOne();
+  }
 }
