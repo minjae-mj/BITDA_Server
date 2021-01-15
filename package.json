@@ -39,7 +39,7 @@
    },
    "scripts": {
       "start": "node dist/app.ts",
-      "build" : "tsc",
-      "dev" : "nodemon src/app.ts"
+      "build": "tsc",
+      "dev": "nodemon src/app.ts"
    }
 }
