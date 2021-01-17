@@ -1,9 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
 import bcryptjs from 'bcryptjs';
 import User from '../../entity/User';
 import { UserData } from '../../definitions/index';
-
+import createToken from '../../utils/sign/createToken';
 export default async (
   req: Request,
   res: Response,
@@ -17,16 +16,12 @@ export default async (
     if (user) {
       const result: boolean = await bcryptjs.compare(password, user.password);
       if (result) {
-        const accessToken: string = jwt.sign(
-          {
-            id: user.id,
-            email: user.email,
-            userName: user.userName,
-            userImage: user.userImage,
-            provider: user.provider,
-          },
-          process.env.JWT_SECRET,
-          { expiresIn: '7d' }
+        const accessToken: string = createToken(
+          user.id,
+          user.email,
+          user.userName,
+          user.userImage,
+          user.provider
         );
         res
           .status(200)
