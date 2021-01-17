@@ -7,12 +7,15 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
   OneToMany,
+
 } from 'typeorm';
 
 import Review from './Review';
 
+
 @Entity()
 export default class Drink extends BaseEntity {
+  
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -58,6 +61,7 @@ export default class Drink extends BaseEntity {
   @OneToMany((type) => Review, (review) => review.drink)
   review: Review[];
 
+  
   static allDrinkList(){
    return this.createQueryBuilder("drink")
    .getMany();
@@ -67,4 +71,15 @@ export default class Drink extends BaseEntity {
     .where("drink.id = :id", {id})
     .getOne();
   }
+
+  // static async checkBookMark(id) {
+  //   return await this.createQueryBuilder("user")
+  //   .leftJoinAndSelect("user.drinks","drinks")
+  //   .where("user.id= :id", {id})
+  //   .getOne();
+  // }
+  // const checkBookMark = await getRepository(User).createQueryBuilder("user")
+  // .leftJoinAndSelect("user.drinks", "drinks")
+  // .where("user.id = :id", { id: id })
+  // .getOne();
 }

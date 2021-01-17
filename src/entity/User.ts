@@ -103,4 +103,5 @@ export default class User extends BaseEntity {
       .where('id= :id', { id })
       .execute();
   }
+
 }
