@@ -93,4 +93,15 @@ export default class User extends BaseEntity {
     ).identifiers[0];
     return this.findOne({ id });
   }
+
+  static async modifyPassword(id: number, password: string): Promise<void> {
+    await this.createQueryBuilder()
+      .update(User)
+      .set({
+        password,
+      })
+      .where('id= :id', { id })
+      .execute();
+  }
+
 }

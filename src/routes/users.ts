@@ -11,6 +11,6 @@ router.post('/google', userController.google);
 router.get('/mypage', checkToken, userController.mypage);
 router.get('/bookmark', userController.bookmark);
 router.patch('/modifyuser', userController.modifyuser);
-router.post('/modifypassword', userController.modifypassword);
+router.post('/modifypassword', checkToken, userController.modifypassword);
 
 export default router;
