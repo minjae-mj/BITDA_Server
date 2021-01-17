@@ -49,6 +49,7 @@ export default class User extends BaseEntity {
   drinks: Drink[];
   @OneToMany((type) => Review, (review) => review.user)
   review: Review[];
+
   static async localRegister(
     email: string,
     password: string,
@@ -68,5 +69,38 @@ export default class User extends BaseEntity {
         .execute()
     ).identifiers[0];
     return this.findOne({ id });
+  }
+
+  static async socialRegister(
+    email: string,
+    userName: string,
+    userImage: string,
+    provider: string
+  ): Promise<User | undefined> {
+    const { id } = (
+      await this.createQueryBuilder()
+        .insert()
+        .into(User)
+        .values([
+          {
+            email,
+            userName,
+            userImage,
+            provider,
+          },
+        ])
+        .execute()
+    ).identifiers[0];
+    return this.findOne({ id });
+  }
+
+  static async modifyPassword(id: number, password: string): Promise<void> {
+    await this.createQueryBuilder()
+      .update(User)
+      .set({
+        password,
+      })
+      .where('id= :id', { id })
+      .execute();
   }
 }
