@@ -104,6 +104,22 @@ export default class User extends BaseEntity {
       .execute();
   }
 
+  static async modifyUser(
+    id: number,
+    userName: string,
+    userImage: string
+  ): Promise<User> {
+    await this.createQueryBuilder()
+      .update(User)
+      .set({
+        userName,
+        userImage,
+      })
+      .where('id= :id', { id })
+      .execute();
+    return this.findOne({ id });
+  }
+  
   static async bookMarkList(id: number): Promise<User> {
     const drinks = await this.createQueryBuilder('user')
       .select(['user.id', 'drinks.id', 'drinks.drinkName', 'drinks.drinkImage'])
@@ -112,5 +128,6 @@ export default class User extends BaseEntity {
       .getOne();
 
     return drinks;
+
   }
 }
