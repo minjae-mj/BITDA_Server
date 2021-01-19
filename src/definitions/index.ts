@@ -10,6 +10,7 @@ declare namespace interfaces {
     createdAt: Date;
     updatedAt: Date;
     deletedAt?: Date;
+    drinks?: object[];
   }
 }
 

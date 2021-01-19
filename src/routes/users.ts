@@ -10,13 +10,13 @@ router.post('/signout', checkToken, userController.signout);
 router.post('/kakao', userController.kakao);
 router.post('/google', userController.google);
 router.get('/mypage', checkToken, userController.mypage);
-router.get('/bookmark', userController.bookmark);
 router.patch(
   '/modifyuser',
   checkToken,
   uploadImage.single('img'),
   userController.modifyuser
 );
+router.get('/bookmark', checkToken, userController.bookmark);
 router.post('/modifypassword', checkToken, userController.modifypassword);
 
 export default router;

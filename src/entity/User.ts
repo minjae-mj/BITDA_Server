@@ -119,4 +119,15 @@ export default class User extends BaseEntity {
       .execute();
     return this.findOne({ id });
   }
+  
+  static async bookMarkList(id: number): Promise<User> {
+    const drinks = await this.createQueryBuilder('user')
+      .select(['user.id', 'drinks.id', 'drinks.drinkName', 'drinks.drinkImage'])
+      .leftJoin('user.drinks', 'drinks')
+      .where('user.id = :id', { id })
+      .getOne();
+
+    return drinks;
+
+  }
 }
