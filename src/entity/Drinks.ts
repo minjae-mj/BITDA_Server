@@ -7,8 +7,11 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
   OneToMany,
-
+  LessThan,
+  MoreThan
+  
 } from 'typeorm';
+
 
 import Review from './Review';
 
@@ -62,6 +65,7 @@ export default class Drink extends BaseEntity {
   review: Review[];
 
   
+
   static allDrinkList(){
    return this.createQueryBuilder("drink")
    .getMany();
@@ -71,15 +75,24 @@ export default class Drink extends BaseEntity {
     .where("drink.id = :id", {id})
     .getOne();
   }
+  
+  static weakList(alcohol: string, type: string, price: string, taste: string, origin: string){
+   return this.createQueryBuilder("drink")
+    .where("drink.alcohol < 15 ", {alcohol})
+    .andWhere("drink.type = :type", { type })
+    .andWhere("drink.price = :price", { price })
+    .andWhere("drink.taste = :taste", { taste })
+    .andWhere("drink.origin = :origin", { origin })
+    .getMany();
+    }
+    static strongList(alcohol: string, type: string, price: string, taste: string, origin: string){
+      return this.createQueryBuilder("drink")
+       .where("drink.alcohol > 14 ", {alcohol})
+       .andWhere("drink.type = :type", { type })
+       .andWhere("drink.price = :price", { price })
+       .andWhere("drink.taste = :taste", { taste })
+       .andWhere("drink.origin = :origin", { origin })
+       .getMany();
+       }
 
-  // static async checkBookMark(id) {
-  //   return await this.createQueryBuilder("user")
-  //   .leftJoinAndSelect("user.drinks","drinks")
-  //   .where("user.id= :id", {id})
-  //   .getOne();
-  // }
-  // const checkBookMark = await getRepository(User).createQueryBuilder("user")
-  // .leftJoinAndSelect("user.drinks", "drinks")
-  // .where("user.id = :id", { id: id })
-  // .getOne();
 }
