@@ -104,4 +104,19 @@ export default class User extends BaseEntity {
       .execute();
   }
 
+  static async modifyUser(
+    id: number,
+    userName: string,
+    userImage: string
+  ): Promise<User> {
+    await this.createQueryBuilder()
+      .update(User)
+      .set({
+        userName,
+        userImage,
+      })
+      .where('id= :id', { id })
+      .execute();
+    return this.findOne({ id });
+  }
 }
