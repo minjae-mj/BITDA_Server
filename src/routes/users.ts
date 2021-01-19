@@ -9,7 +9,7 @@ router.post('/signout', checkToken, userController.signout);
 router.post('/kakao', userController.kakao);
 router.post('/google', userController.google);
 router.get('/mypage', checkToken, userController.mypage);
-router.get('/bookmark', userController.bookmark);
+router.get('/bookmark', checkToken, userController.bookmark);
 router.patch('/modifyuser', userController.modifyuser);
 router.post('/modifypassword', checkToken, userController.modifypassword);
 
