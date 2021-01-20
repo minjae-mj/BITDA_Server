@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Connection, getRepository } from 'typeorm';
+import { getRepository } from 'typeorm';
 import Drink from '../../entity/Drinks';
 import User from '../../entity/User';
 export default async (req: Request, res: Response): Promise<void> => {
